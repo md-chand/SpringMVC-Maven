@@ -1,22 +1,31 @@
 package com.springmvc.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.springmvc.model.UserDetails;
 import com.springmvc.model.UserLogin;
+import com.springmvc.services.AuthenticationService;
 
+/**
+ * 
+ * @author mpasha
+ * 
+ */
 @org.springframework.stereotype.Controller
 @RequestMapping(value = "/auth")
 public class Controller
 {
+	@Autowired
+	AuthenticationService authenticationService;
+	
 	@RequestMapping(value = "/login")
 	public ModelAndView login()
 	{
-		System.out.println("Inside Controller");
 		return new ModelAndView("loginPage", "userLogin", new UserLogin());
-//		return new ModelAndView("NewFile", "userLogin", new UserLogin());
 	}
 
 	@RequestMapping(value = "/doLogin", method = RequestMethod.POST)
@@ -24,6 +33,11 @@ public class Controller
 	{
 		System.out.println(userLogin.getUserName());
 		System.out.println(userLogin.getPassword());
-		return new ModelAndView("NewFile");
+		UserDetails userDetails = authenticationService.authenticatelogin(userLogin);
+		if(userDetails != null)
+		{
+			return new ModelAndView("userHome");
+		}
+		return null;
 	}
 }

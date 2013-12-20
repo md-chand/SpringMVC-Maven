@@ -6,5 +6,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- Uncomment and add your base-package here: <context:component-scan base-package="com.springmvc.controller"/> -->
+	
+	<bean id="authenticationService" class="com.springmvc.services.impl.AuthenticationServiceImpl" />
 
 </beans>
