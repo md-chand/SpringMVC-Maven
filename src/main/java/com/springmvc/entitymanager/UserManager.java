@@ -1,5 +1,6 @@
 package com.springmvc.entitymanager;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
 import com.springmvc.entity.UserDetailsEntity;

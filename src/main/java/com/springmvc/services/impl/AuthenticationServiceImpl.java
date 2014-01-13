@@ -1,6 +1,8 @@
 package com.springmvc.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springmvc.entity.UserDetailsEntity;
@@ -9,6 +11,7 @@ import com.springmvc.model.UserDetails;
 import com.springmvc.model.UserLogin;
 import com.springmvc.services.AuthenticationService;
 
+@Service
 public class AuthenticationServiceImpl implements AuthenticationService
 {
 

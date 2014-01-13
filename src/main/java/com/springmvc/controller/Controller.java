@@ -19,6 +19,7 @@ import com.springmvc.services.AuthenticationService;
 @RequestMapping(value = "/auth")
 public class Controller
 {
+	
 	@Autowired
 	AuthenticationService authenticationService;
 	
