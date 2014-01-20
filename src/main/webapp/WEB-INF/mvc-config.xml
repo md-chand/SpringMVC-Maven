@@ -27,5 +27,14 @@
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	
+	<mvc:interceptors>
+	<!-- Any interceptors given here, will be called for every request -->
+		<!-- <bean class="com.springmvc.handlerinterceptor.RequestInterceptor" /> -->
+		<mvc:interceptor>
+			<mvc:mapping path="/auth/*" />
+				<bean class="com.springmvc.handlerinterceptor.CacheDisablerHandletInterceptot" />
+		</mvc:interceptor>
+	</mvc:interceptors>	
 
 </beans>
