@@ -1,7 +1,6 @@
 package com.springmvc.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,13 +15,14 @@ public class AuthenticationServiceImpl implements AuthenticationService
 {
 
 	@Autowired
-	public UserManager userRepository; 
+	public UserManager userRepository;
 	
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails authenticatelogin(UserLogin userLogin)
 	{
 		UserDetails userDetails = null;
+		System.out.println("Inside Auth Service");
 		if (userLogin.getUserName().equals("Chand") && userLogin.getPassword().equals("password"))
 		{
 			userDetails = new UserDetails();
@@ -31,9 +31,9 @@ public class AuthenticationServiceImpl implements AuthenticationService
 			detailsEntity.setEmail("md.pasha@compugain.com");
 			detailsEntity.setContactNumber("9985947303");
 			detailsEntity = userRepository.persist(detailsEntity);
-			System.out.println(detailsEntity.getUserId());			
+			System.out.println(detailsEntity.getUserId());
+			userDetails.setUserId(detailsEntity.getUserId());
 		}
 		return userDetails;
 	}
-
 }

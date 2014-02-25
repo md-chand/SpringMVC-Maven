@@ -16,5 +16,5 @@ public interface AuthenticationService
 	 * @param userLogin
 	 * @return
 	 */
-	public UserDetails authenticatelogin(UserLogin userLogin);
+	UserDetails authenticatelogin(UserLogin userLogin);
 }
