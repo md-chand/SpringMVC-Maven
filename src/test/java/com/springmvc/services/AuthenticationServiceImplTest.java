@@ -15,7 +15,7 @@ import com.springmvc.model.UserLogin;
 public class AuthenticationServiceImplTest
 {	
 	@Autowired
-	AuthenticationService authenticationService;
+	UserService authenticationService;
 	
 	@Test
 	public void test()

@@ -8,53 +8,87 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table (name="USER_DETAILS")
-public class UserDetailsEntity 
+@Table(name = "USER_DETAILS")
+public class UserDetailsEntity
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
 	private int userId;
-	
+
 	@Column(name = "name")
 	private String name;
-	
-	public int getUserId() {
+
+	public int getUserId()
+	{
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(int userId)
+	{
 		this.userId = userId;
 	}
 
 	@Column(name = "contactNumber")
 	private String contactNumber;
-	
+
 	@Column(name = "email")
 	private String email;
 
-	public String getName() {
+	@Column(name = "username")
+	private String userName;
+
+	@Column(name = "password")
+	private String password;
+
+	public String getName()
+	{
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name)
+	{
 		this.name = name;
 	}
 
-	public String getContactNumber() {
+	public String getContactNumber()
+	{
 		return contactNumber;
 	}
 
-	public void setContactNumber(String contactNumber) {
+	public void setContactNumber(String contactNumber)
+	{
 		this.contactNumber = contactNumber;
 	}
 
-	public String getEmail() {
+	public String getEmail()
+	{
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(String email)
+	{
 		this.email = email;
+	}
+
+	public String getUserName()
+	{
+		return userName;
+	}
+
+	public void setUserName(String userName)
+	{
+		this.userName = userName;
+	}
+
+	public String getPassword()
+	{
+		return password;
+	}
+
+	public void setPassword(String password)
+	{
+		this.password = password;
 	}
 
 }

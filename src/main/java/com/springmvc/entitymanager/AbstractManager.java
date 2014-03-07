@@ -5,7 +5,7 @@ import javax.persistence.PersistenceContext;
 
 public abstract class AbstractManager<T> 
 {
-	private final Class<T> type;
+	protected final Class<T> type;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -13,6 +13,11 @@ public abstract class AbstractManager<T>
 	public AbstractManager(Class<T> type) 
 	{
 		this.type = type;
+	}
+	
+	protected EntityManager getEntityManager()
+	{
+		return entityManager;
 	}
 
 	public T findById(long Id) 

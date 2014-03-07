@@ -8,7 +8,7 @@ import com.springmvc.model.UserLogin;
  * @author mpasha
  * 
  */
-public interface AuthenticationService
+public interface UserService
 {
 	/**
 	 * This method will validate user credentials
@@ -17,4 +17,6 @@ public interface AuthenticationService
 	 * @return
 	 */
 	UserDetails authenticatelogin(UserLogin userLogin);
+
+	UserDetails createUser(UserDetails userDetails);
 }

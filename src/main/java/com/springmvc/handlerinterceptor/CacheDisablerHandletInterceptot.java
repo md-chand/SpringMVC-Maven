@@ -32,7 +32,7 @@ public class CacheDisablerHandletInterceptot extends HandlerInterceptorAdapter
 	{
 		// TODO 
 		System.out.println("Pre Handler method called!");
-		return true;
+		return false;
 	}
 	
 }

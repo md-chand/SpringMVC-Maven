@@ -1,5 +1,9 @@
 package com.springmvc.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvc.model.UserDetails;
 import com.springmvc.model.UserLogin;
-import com.springmvc.services.AuthenticationService;
+import com.springmvc.services.UserService;
 import com.springmvc.services.CallableFutureService;
 
 /**
@@ -18,15 +22,17 @@ import com.springmvc.services.CallableFutureService;
  * 
  */
 @org.springframework.stereotype.Controller
-@RequestMapping(value = "/auth")
+@RequestMapping(value = "/application")
 public class Controller
 {
 
 	@Autowired
-	AuthenticationService authenticationService;
-	
+	UserService authenticationService;
+
 	@Autowired
 	CallableFutureService callableFutureService;
+
+	private HttpSession session;
 
 	@RequestMapping(value = "/login")
 	public ModelAndView login()
@@ -34,26 +40,49 @@ public class Controller
 		return new ModelAndView("loginPage", "userLogin", new UserLogin());
 	}
 
-	@RequestMapping(value = "/doLogin", method = RequestMethod.POST)
-	public ModelAndView doLogin(@ModelAttribute("userLogin") UserLogin userLogin)
+	@RequestMapping(value = "/auth/doLogin", method = RequestMethod.POST)
+	public ModelAndView doLogin(@ModelAttribute("userLogin") UserLogin userLogin, HttpServletRequest request,
+			HttpServletResponse response)
 	{
-		System.out.println(userLogin.getUserName());
-		System.out.println(userLogin.getPassword());
 		UserDetails userDetails = authenticationService.authenticatelogin(userLogin);
-		System.out.println(userLogin.getUserName());
 		if (userDetails != null)
 		{
 			return new ModelAndView("userHome");
 		}
-		return null;
+		else
+		{
+			ModelAndView model = new ModelAndView("loginPage", "userLogin", new UserLogin());
+			model.addObject("error", "Invalid Credentials");
+			return model;
+		}
+	}
+
+	@RequestMapping(value = "/auth/getCreateUserPage")
+	public ModelAndView getCreateUserPage(HttpServletRequest request,
+			HttpServletResponse response)
+	{
+		return new ModelAndView("createUserPage", "userDetails", new UserDetails());
+	}
+
+	@RequestMapping(value = "/auth/createUser", method = RequestMethod.POST)
+	public ModelAndView createUser(@ModelAttribute("userDetails") UserDetails userDetails, HttpServletRequest request,
+			HttpServletResponse response)
+	{
+		UserDetails details = authenticationService.createUser(userDetails);
+		if (details != null)
+		{
+			System.out.println("User Created Successfully.");
+		}
+		return new ModelAndView("userHome");
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/createUsers", method = RequestMethod.GET)
-	public String createUsers()
+	@RequestMapping(value = "/auth/createUsers", method = RequestMethod.GET)
+	public String createUsers(HttpServletRequest request,
+			HttpServletResponse response)
 	{
 		callableFutureService.createUserExecutor();
 		return "processing request!";
 	}
-	
+
 }

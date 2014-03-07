@@ -6,7 +6,7 @@ function getStates()
 {
 	var value = $("#country").val();
 	$.ajax({
-		url : "/SpringMavenMVC/services/auth/getStates?country="+ value,
+		url : "/springmvc/services/auth/getStates?country="+ value,
 		type : "GET",
 		success : function(response) {
 			jQuery("#states").html(response);
@@ -24,7 +24,7 @@ function getReportAttributes()
 {
 	var category = $('input:radio[name=category]:checked').val();
 	$.ajax({
-		url : "/SpringMavenMVC/services/auth/getReportAttributes?category="+ category,
+		url : "/springmvc/services/auth/getReportAttributes?category="+ category,
 		type : "GET",
 		success : function(response) {
 			jQuery("#report_attribute").html(response);
