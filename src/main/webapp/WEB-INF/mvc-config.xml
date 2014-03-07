@@ -29,15 +29,15 @@
 	</bean>
 	
 	<mvc:interceptors>
-	<!-- Any interceptors given here, will be called for every request -->
-		<!-- <bean class="com.springmvc.handlerinterceptor.RequestInterceptor" /> -->
+	<!-- Any interceptors given here, will be called for every request
+				<bean class="com.springmvc.handlerinterceptor.RequestInterceptor" /> -->
 		<mvc:interceptor>
 			<mvc:mapping path="/application/*" />
 				<bean class="com.springmvc.handlerinterceptor.CacheDisablerHandletInterceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/application/auth/*"/>
-			<bean class="com.springmvc.handlerinterceptor.SessionAuthHandlerInterceptor"></bean>
+				<bean class="com.springmvc.handlerinterceptor.SessionAuthHandlerInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>	
 
