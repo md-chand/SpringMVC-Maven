@@ -44,7 +44,7 @@
 					id="tologin"></a>
 				<div id="wrapper">
 					<div id="login" class="animate form" style="height: 40%">
-						<form:form name='loginForm' action='/springmvc/services/application/auth/doLogin' method='POST' modelAttribute="userLogin">
+						<form:form name='loginForm' action='/springmvc/services/application/doLogin' method='POST' modelAttribute="userLogin">
 							<!-- <h1>Log in</h1> -->
 							<p>
 								<label for="username" class="uname" data-icon="u">

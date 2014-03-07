@@ -32,21 +32,28 @@ public class Controller
 	@Autowired
 	CallableFutureService callableFutureService;
 
-	private HttpSession session;
-
 	@RequestMapping(value = "/login")
 	public ModelAndView login()
 	{
 		return new ModelAndView("loginPage", "userLogin", new UserLogin());
 	}
 
-	@RequestMapping(value = "/auth/doLogin", method = RequestMethod.POST)
+	@RequestMapping(value = "/sessionExpired")
+	public ModelAndView redirectOnSessionExpiry()
+	{
+		ModelAndView model = login();
+		model.addObject("error", "Your session has expired. Please login againg");
+		return model;
+	}
+	
+	@RequestMapping(value = "/doLogin", method = RequestMethod.POST)
 	public ModelAndView doLogin(@ModelAttribute("userLogin") UserLogin userLogin, HttpServletRequest request,
 			HttpServletResponse response)
 	{
 		UserDetails userDetails = authenticationService.authenticatelogin(userLogin);
 		if (userDetails != null)
 		{
+			request.getSession().setAttribute("LOGGEDIN_USER", userDetails);
 			return new ModelAndView("userHome");
 		}
 		else
