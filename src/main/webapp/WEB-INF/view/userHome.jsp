@@ -32,17 +32,8 @@
 <%-- <link rel="stylesheet" type="text/css" href="<%=context%>/css/animate-custom.css" /> --%>
 </head>
 <body>
-	<div class="container" style="text-align: inherit;">
-		<div style="padding: 20px 0 25px 45px;">
-			<div style="color: rgba(26, 89, 120, 0.9);">
-				<table style="width: 100%">
-				    <tr>
-				        <td style="width: 94.5%; font-size: 35px; font-weight: 400; line-height: 35px; font-family: 'BebasNeueRegular','Arial Narrow',Arial,sans-serif;">Home Page</td>
-				        <td><a>Sign out</a></td>
-				     </tr>
-				</table>
-			</div>
-		</div>
+	<div class="container" style="text-align: inherit;">		
+	<%@include file="header.jsp" %>
 		<div id="login" style="top: 10%; padding: 2%; width: 91%; margin: 0px 20px 20px 47px; height: 60%;">
 			You have logged in successfully!
 			<p>

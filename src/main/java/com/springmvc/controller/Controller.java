@@ -91,5 +91,21 @@ public class Controller
 		callableFutureService.createUserExecutor();
 		return "processing request!";
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value = "/auth/userHomePage", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView userHomePage(HttpServletRequest request,HttpServletResponse response)
+	{
+		return new ModelAndView("userHome");
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/auth/signOut", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView signOut(HttpServletRequest request,HttpServletResponse response)
+	{
+		request.getSession().invalidate();
+		ModelAndView model = login();
+		model.addObject("error", "You have logged out successfully.");
+		return model;
+	}
 }

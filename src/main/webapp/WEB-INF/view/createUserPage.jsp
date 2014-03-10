@@ -33,16 +33,7 @@
 <body>
 <body>
 	<div class="container" style="text-align: inherit;">
-		<div style="padding: 20px 0 25px 45px;">
-			<div style="color: rgba(26, 89, 120, 0.9);">
-				<table style="width: 100%">
-				    <tr>
-				        <td style="width: 94.5%; font-size: 35px; font-weight: 400; line-height: 35px; font-family: 'BebasNeueRegular','Arial Narrow',Arial,sans-serif;">Home Page</td>
-				        <td><a>Sign out</a></td>
-				     </tr>
-				</table>
-			</div>
-		</div>
+	<%@include file="header.jsp" %>
 		<div id="wrapper"  style="margin: 0">
 			<div id="login"
 				style="padding: 2%; width: 90%; margin: 0px 20px 20px 47px; height: 95%;">
@@ -85,7 +76,7 @@
 					<p class="signin button">
 						<input type="submit" value="Sign up" />
 					</p>
-				</form:form>			
+				</form:form>				
 			</div>
 		</div>		
 	</div>
