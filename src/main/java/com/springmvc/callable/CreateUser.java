@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.springmvc.model.UserDetails;
 import com.springmvc.model.UserLogin;
-import com.springmvc.services.UserService;
+import com.springmvc.services.AuthService;
 
 public class CreateUser implements Callable<UserDetails>
 {
 	@Autowired
-	UserService authenticationService;
+	AuthService authServiceImpl;
 	
 	@Override
 	public UserDetails call() throws Exception
@@ -20,7 +20,7 @@ public class CreateUser implements Callable<UserDetails>
 		UserLogin userLogin = new UserLogin();
 		userLogin.setUserName("Chand");
 		userLogin.setPassword("password");
-		return authenticationService.authenticatelogin(userLogin);		
+		return authServiceImpl.login(userLogin);		
 	}
 
 }

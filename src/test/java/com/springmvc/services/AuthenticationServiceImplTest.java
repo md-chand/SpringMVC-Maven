@@ -13,19 +13,19 @@ import com.springmvc.model.UserLogin;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/spring/test-application-config.xml")
 public class AuthenticationServiceImplTest
-{	
+{
 	@Autowired
-	UserService authenticationService;
-	
+	AuthService authService;
+
 	@Test
 	public void test()
 	{
 		System.out.println("Hello world");
-		Assert.assertNotNull(authenticationService);
+		Assert.assertNotNull(authService);
 		UserLogin userLogin = new UserLogin();
-		userLogin.setUserName("Chand");
-		userLogin.setPassword("password");
-		UserDetails userDetails = authenticationService.authenticatelogin(userLogin);
+		userLogin.setUserName("admin");
+		userLogin.setPassword("admin");
+		UserDetails userDetails = authService.login(userLogin);
 		Assert.assertNotNull(userDetails);
 		Assert.assertNotNull(userDetails.getUserId());
 		System.out.println("#### " + userDetails.getUserId());
