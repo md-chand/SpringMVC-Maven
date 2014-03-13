@@ -2,6 +2,7 @@ package com.springmvc.services;
 
 import java.security.NoSuchAlgorithmException;
 
+import com.springmvc.exception.InvalidUserException;
 import com.springmvc.model.UserDetails;
 import com.springmvc.model.UserLogin;
 
@@ -11,7 +12,7 @@ public interface AuthService
 
 	UserLogin resetPassword(UserLogin userLogin);
 
-	String getPasswordResetToken(String username) throws NoSuchAlgorithmException;
+	boolean sendResetPasswordToken(UserLogin userLogin) throws NoSuchAlgorithmException, InvalidUserException;
 
-	boolean validateResetPasswordToken(String token);
+	UserDetails validateResetPasswordToken(String token);
 }

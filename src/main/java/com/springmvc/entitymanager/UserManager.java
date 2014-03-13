@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.springmvc.entity.UserDetailsEntity;
 import com.springmvc.model.UserLogin;
 
-@Repository("userRepository")
+@Repository("userManager")
+@SuppressWarnings("unchecked")
 public class UserManager extends AbstractManager<UserDetailsEntity>
 {
 	public UserManager()
@@ -17,12 +18,19 @@ public class UserManager extends AbstractManager<UserDetailsEntity>
 		super(UserDetailsEntity.class);
 	}
 
-	public List<UserDetailsEntity> validateUser(UserLogin userLogin)
+	public List<UserDetailsEntity> getUserByUserName(String userName)
 	{
-		String hql = "select e from " + type.getName() + " e where e.userName = :userName and password = :password";
+		String hql = "select e from " + type.getName() + " e where e.userName = :userName";
 		Query query = getEntityManager().createQuery(hql);
-		query.setParameter("userName", userLogin.getUserName());
-		query.setParameter("password", userLogin.getPassword());
+		query.setParameter("userName", userName);
+		return query.getResultList();
+	}
+
+	public List<UserDetailsEntity> getUserByEmail(String email)
+	{
+		String hql = "select e from " + type.getName() + " e where e.email = :email";
+		Query query = getEntityManager().createQuery(hql);
+		query.setParameter("email", email);
 		return query.getResultList();
 	}
 }

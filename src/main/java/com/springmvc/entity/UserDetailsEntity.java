@@ -12,19 +12,19 @@ import javax.persistence.Table;
 public class UserDetailsEntity
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)	
 	@Column(name = "user_id")
-	private int userId;
+	private Long userId;
 
 	@Column(name = "name")
 	private String name;
 
-	public int getUserId()
+	public Long getUserId()
 	{
 		return userId;
 	}
 
-	public void setUserId(int userId)
+	public void setUserId(Long userId)
 	{
 		this.userId = userId;
 	}

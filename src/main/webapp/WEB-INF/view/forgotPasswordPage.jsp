@@ -32,49 +32,37 @@
 <link rel="stylesheet" type="text/css"
 	href="<%=context%>/css/animate-custom.css" />
 </head>
+
+<script type="text/javascript" src="<%=context%>/script/validation.js"></script>
+<script type="text/javascript" src="<%=context%>/script/jQuery-1.10.1.min.js"></script>
+
 <body>
 	<div class="container">
 		<header>
-			<h1>Log in</h1>
+			<h1>Password recovery page</h1>
 		</header>
 		<section>
 			<div id="container_demo">
-				<!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
-				<a class="hiddenanchor" id="toregister"></a> <a class="hiddenanchor"
-					id="tologin"></a>
 				<div id="wrapper">
-					<div id="login" class="animate form" style="height: 40%">
-						<form:form name='loginForm' action='/springmvc/services/application/doLogin' method='POST' modelAttribute="userLogin">
-							<!-- <h1>Log in</h1> -->
+					<div id="login" class="animate form" style="height: 46%">
+						<form:form name='resetPasswordForm' action='/springmvc/services/application/generateResetPasswordToken' method='POST' modelAttribute="userLogin">
+							<div>
+								<p style="margin-bottom: 6px;">Changing your password is simple.</p>
+								<p>Please enter your Username or registered email address to get instructions.</p>
+							</div>
 							<p>
 								<label for="username" class="uname" data-icon="u">
 									Username </label>
-								<form:input path="userName" id="userName" required="required"
-									type="text" placeholder="username" />
+								<form:input path="userName" id="userName" type="text" placeholder="username" />
 							</p>
+							<p align="center" style="margin-bottom: 0px;">OR</p>
 							<p>
-								<label for="password" class="youpasswd" data-icon="p">
-									Your password </label>
-								<form:password path="password" id="password" required="required" placeholder="eg. X8df!90EO" />
+								<label for="emailsignup" class="youmail" data-icon="e"> Email Id</label>
+								<form:input path="email" id="email" name="emailsignup" placeholder="mysupermail@mail.com" />
 							</p>
-							<p class="keeplogin">
-								<input type="checkbox" name="loginkeeping" id="loginkeeping"
-									value="loginkeeping" /> <label for="loginkeeping">Keep
-									me logged in</label>
+							<p class="login button">
+								<input type="submit" value="Login" onclick="return validateUserNameOrPasswordEntered();" />
 							</p>
-							<c:if test="${not empty error}">
-								<p style="color: red">
-									<c:out value="*${ error}"></c:out>
-								</p>
-							</c:if>
-							<p class="login button" style="margin-bottom: 0px;">
-								<input type="submit" value="Login" />
-							</p>
-							<a href="/springmvc/services/application/forgotPassword">Forgot your password?</a>
-							<!-- <p class="change_link">
-								Not a member yet ? <a href="#toregister" class="to_register">Join
-									us</a>
-							</p> -->
 						</form:form>
 					</div>
 				</div>

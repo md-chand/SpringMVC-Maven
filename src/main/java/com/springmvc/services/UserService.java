@@ -10,4 +10,10 @@ import com.springmvc.model.UserDetails;
 public interface UserService
 {
 	UserDetails createUser(UserDetails userDetails);
+
+	UserDetails getUserByUserName(String userName);
+
+	UserDetails getUserByEmail(String email);
+	
+	UserDetails updateUserPassword(UserDetails userDetails);
 }

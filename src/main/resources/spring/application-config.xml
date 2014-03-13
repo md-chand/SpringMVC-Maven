@@ -11,12 +11,13 @@
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
 
-	<context:component-scan base-package="com.springmvc.services, com.springmvc.entitymanager, com.springmvc.callable" />
-	<!-- Since services and repositories are annotated, not declaring beans explicitly -->
-	
-	<!-- <bean id="authenticationService" class="com.springmvc.services.impl.AuthenticationServiceImpl" />
-	<bean id="userManager" class="com.springmvc.entitymanager.UserManager"/> -->
-	
+	<!-- Since services and repositories are annotated, not declaring beans 
+		explicitly -->
+	<context:component-scan
+		base-package="com.springmvc.services, com.springmvc.entitymanager, com.springmvc.callable" />
+
+	<import resource="/email-config.xml" />
+
 	<!-- Database configuration for MySQL -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -53,5 +54,16 @@
 		<property name="generateDdl" value="true" />
 		<property name="showSql" value="true" />
 	</bean>
-		
+
+	<!-- Java.mail configuration -->
+	<!-- <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
+		<property name="host" value="smtp.gmail.com"/> <property name="port" value="587"/> 
+		<property name="username" value="springmavc@gmail.com"/> <property name="password" 
+		value="springmvc.123"/> <property name="javaMailProperties"> <props> <prop 
+		key="mail.transport.protocol">smtp</prop> <prop key="mail.smtp.auth">true</prop> 
+		<prop key="mail.smtp.starttls.enable">true</prop> <prop key="mail.debug">true</prop> 
+		</props> </property> </bean> <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean"> 
+		<property name="velocityProperties"> <value> resource.loader=class class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader 
+		</value> </property> </bean> -->
+
 </beans>

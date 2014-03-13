@@ -1,7 +1,8 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
 	version="1.0">
 	<persistence-unit name="springmvc_db" transaction-type="RESOURCE_LOCAL">
-		<class>com.springmvc.entity.UserDetailsEntity</class>		
+		<class>com.springmvc.entity.UserDetailsEntity</class>
+		<class>com.springmvc.entity.TokenAuthenticationEntity</class>		
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
 	</persistence-unit>
 </persistence>

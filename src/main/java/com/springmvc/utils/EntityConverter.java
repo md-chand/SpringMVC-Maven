@@ -20,6 +20,7 @@ public class EntityConverter
 	public static UserDetailsEntity toEntity(UserDetails userDetails)
 	{
 		UserDetailsEntity userDetailsEntity = new UserDetailsEntity();
+		userDetailsEntity.setUserId(userDetails.getUserId());
 		userDetailsEntity.setName(userDetails.getName());
 		userDetailsEntity.setContactNumber(userDetails.getContactNumber());
 		userDetailsEntity.setEmail(userDetails.getEmail());

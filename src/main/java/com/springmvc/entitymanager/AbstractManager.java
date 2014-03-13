@@ -31,7 +31,7 @@ public abstract class AbstractManager<T>
 		return t;
 	}
 
-	public T mergr(T t) 
+	public T merge(T t) 
 	{
 		entityManager.merge(t);
 		return t;
