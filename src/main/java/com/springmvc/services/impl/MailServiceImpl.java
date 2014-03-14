@@ -28,7 +28,7 @@ public class MailServiceImpl implements MailService
 	private String RESET_PWD_TOKEN_AUTH_URL = "http://localhost:8080/springmvc/services/application/validateResetPasswordToken?token=";
 
 	@Override
-	public void sendMail(final String recipient, final String token)
+	public void sendForgotPasswordTokenMail(final String recipient, final String token)
 	{
 		MimeMessagePreparator preparator = new MimeMessagePreparator()
 		{

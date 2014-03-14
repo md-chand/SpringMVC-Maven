@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.springmvc.model.UserDetails;
 import com.springmvc.model.UserLogin;
 import com.springmvc.services.AuthService;
-import com.springmvc.services.CallableFutureService;
 import com.springmvc.services.UserService;
 
 /**
@@ -34,9 +33,6 @@ public class Controller
 
 	@Autowired
 	AuthService authServiceImpl;
-
-	@Autowired
-	CallableFutureService callableFutureService;
 
 	/** Authentication related methods */
 
@@ -145,8 +141,7 @@ public class Controller
 				request.getSession().setAttribute("LOGGEDIN_USER", userDetails);
 				view = new ModelAndView("userHome");
 			}
-		} 
-		catch (Exception exception)
+		} catch (Exception exception)
 		{
 			view = new ModelAndView("loginPage", "userLogin", new UserLogin());
 			view.addObject("error", exception.getMessage());
@@ -174,18 +169,36 @@ public class Controller
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/auth/createUsers", method = RequestMethod.GET)
-	public String createUsers(HttpServletRequest request, HttpServletResponse response)
-	{
-		callableFutureService.createUserExecutor();
-		return "processing request!";
-	}
-
-	@ResponseBody
 	@RequestMapping(value = "/auth/userHomePage", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView userHomePage(HttpServletRequest request, HttpServletResponse response)
 	{
 		return new ModelAndView("userHome");
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/userNameAvailable", method = RequestMethod.GET)
+	public String isUserNameAvailable(@RequestParam("userName") String userName)
+	{
+		String result = "valid";
+		UserDetails userDetails = userServiceImpl.getUserByUserName(userName);
+		if (userDetails != null)
+		{
+			result = "invalid";
+		}
+		return result;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/emailExistence", method = RequestMethod.GET)
+	public String isEmailExisted(@RequestParam("emailId") String emailId)
+	{
+		String result = "not existed";
+		UserDetails userDetails = userServiceImpl.getUserByEmail(emailId);
+		if (userDetails != null)
+		{
+			result = "existed";
+		}
+		return result;
 	}
 
 	/**
@@ -196,15 +209,12 @@ public class Controller
 	 * @param response
 	 * @return ModelAndView
 	 */
-/*	private ModelAndView getErrorResponse(Exception exception, HttpServletResponse response)
-	{
-		// LOGGER.error(exception.getMessage(), exception);
-		response.setStatus(500);
-		// ModelAndView model = new ModelAndView(createUpdateProjectErrorPage);
-		ModelAndView model = new ModelAndView("");
-		String errorMessage = exception.getMessage();
-		model.addObject("errorMessage", errorMessage);
-		return model;
-	}
-*/	
+	/*
+	 * private ModelAndView getErrorResponse(Exception exception,
+	 * HttpServletResponse response) { // LOGGER.error(exception.getMessage(),
+	 * exception); response.setStatus(500); // ModelAndView model = new
+	 * ModelAndView(createUpdateProjectErrorPage); ModelAndView model = new
+	 * ModelAndView(""); String errorMessage = exception.getMessage();
+	 * model.addObject("errorMessage", errorMessage); return model; }
+	 */
 }

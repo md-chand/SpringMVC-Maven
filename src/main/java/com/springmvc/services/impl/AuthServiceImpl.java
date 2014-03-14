@@ -86,7 +86,7 @@ public class AuthServiceImpl implements AuthService
 		}
 		else
 		{
-			mailServiceImpl.sendMail(userDetails.getEmail(), token);
+			mailServiceImpl.sendForgotPasswordTokenMail(userDetails.getEmail(), token);
 		}
 		return result;
 	}

@@ -15,21 +15,22 @@
 %>
 
 <head>
-<meta charset="UTF-8" />
-<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
-<title>Create User Page</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description"
-	content="Login and Registration Form with HTML5 and CSS3" />
-<meta name="keywords"
-	content="html5, css3, form, switch, animation, :target, pseudo-class" />
-<meta name="author" content="Codrops" />
-<link rel="shortcut icon" href="../favicon.ico">
-<link rel="stylesheet" type="text/css" href="<%=context%>/css/demo.css" />
-<link rel="stylesheet" type="text/css"
-	href="<%=context%>/css/style3.css" />
-<%-- <link rel="stylesheet" type="text/css" href="<%=context%>/css/animate-custom.css" /> --%>
+	<meta charset="UTF-8" />
+	<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
+	<title>Create User Page</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Login and Registration Form with HTML5 and CSS3" />
+	<meta name="keywords" content="html5, css3, form, switch, animation, :target, pseudo-class" />
+	<meta name="author" content="Codrops" />
+	<link rel="shortcut icon" href="../favicon.ico">
+	<link rel="stylesheet" type="text/css" href="<%=context%>/css/demo.css" />
+	<link rel="stylesheet" type="text/css" href="<%=context%>/css/style3.css" />
+
 </head>
+
+<script type="text/javascript" src="<%=context%>/script/validation.js"></script>
+<script type="text/javascript" src="<%=context%>/script/jQuery-1.10.1.min.js"></script>
+
 <body>
 <body>
 	<div class="container" style="text-align: inherit;">
@@ -47,20 +48,22 @@
 					<p>
 						<label for="emailsignup" class="youmail" data-icon="e">
 							Email Id</label> 
-							<!-- <input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="mysupermail@mail.com" /> -->
-							<form:input path="email" id="emailsignup" name="emailsignup" required="required" placeholder="mysupermail@mail.com" />
+							<form:input path="email" id="emailsignup" name="emailsignup" required="required" placeholder="mysupermail@mail.com" 
+							onblur="checkForEmailExistence();"/>
+							<div id="emailError" style="color:red; display: none;"></div>
 					</p>
 					<p>
 						<label for="contactnumbersignup" class="uname" data-icon="u">Your
 							Contact Number</label> 
 							<!-- <input id="contactnumbersignup" name="usernamesignup" required="required" type="text" placeholder="mysuperusername690" /> -->
 							<form:input path="contactNumber" id="contactnumbersignup" name="usernamesignup" required="required" placeholder="mysuperusername690" />
-					</p>							
+					</p>
 					<p>
 						<label for="usernamesignup" class="uname" data-icon="u">Your
-							username</label> 
-							<!-- <input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="mysuperusername690" /> -->
-							<form:input path="userName" id="usernamesignup" name="usernamesignup" required="required" placeholder="mysuperusername690" />
+							username</label>
+						<form:input path="userName" id="usernamesignup" name="usernamesignup" required="required"
+							placeholder="mysuperusername690" onblur="checkUserNameAvailability();"/>
+							<div id="userNameAvailable" style="color:red; display: none;"></div>
 					</p>
 					<p>
 						<label for="passwordsignup" class="youpasswd" data-icon="p">Your
