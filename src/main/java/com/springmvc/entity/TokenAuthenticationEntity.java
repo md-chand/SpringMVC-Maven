@@ -19,7 +19,7 @@ public class TokenAuthenticationEntity
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "auth_id")
-	private long authId;
+	private long authTokenId;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_Id", nullable = false)
@@ -31,14 +31,17 @@ public class TokenAuthenticationEntity
 	@Column(name = "token_creation_time")
 	private Date tokenCreationDate;
 
-	public long getAuthId()
+	@Column(name = "token_expire_time")
+	private Date tokenExpiryDate;
+
+	public long getAuthTokenId()
 	{
-		return authId;
+		return authTokenId;
 	}
 
-	public void setAuthId(long authId)
+	public void setAuthTokenId(long authId)
 	{
-		this.authId = authId;
+		this.authTokenId = authId;
 	}
 
 	public UserDetailsEntity getUserDetailsEntity()
@@ -69,5 +72,15 @@ public class TokenAuthenticationEntity
 	public void setTokenCreationDate(Date tokenCreationDate)
 	{
 		this.tokenCreationDate = tokenCreationDate;
+	}
+
+	public Date getTokenExpiryDate()
+	{
+		return tokenExpiryDate;
+	}
+
+	public void setTokenExpiryDate(Date tokenExpiryDate)
+	{
+		this.tokenExpiryDate = tokenExpiryDate;
 	}
 }

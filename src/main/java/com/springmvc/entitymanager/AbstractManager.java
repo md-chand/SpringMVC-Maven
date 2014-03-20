@@ -36,5 +36,10 @@ public abstract class AbstractManager<T>
 		entityManager.merge(t);
 		return t;
 	}
+	
+	public void remove(T entity)
+	{
+		entityManager.remove(entity);
+	}
 
 }

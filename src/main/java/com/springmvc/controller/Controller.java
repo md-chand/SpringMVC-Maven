@@ -37,7 +37,7 @@ public class Controller
 	/** Authentication related methods */
 
 	@RequestMapping(value = "/login")
-	public ModelAndView login()
+	public ModelAndView getLoginPage()
 	{
 		return new ModelAndView("loginPage", "userLogin", new UserLogin());
 	}
@@ -45,7 +45,7 @@ public class Controller
 	@RequestMapping(value = "/sessionExpired")
 	public ModelAndView redirectOnSessionExpiry()
 	{
-		ModelAndView model = login();
+		ModelAndView model = getLoginPage();
 		model.addObject("error", "Your session has expired. Please login againg");
 		return model;
 	}
@@ -73,7 +73,7 @@ public class Controller
 	public ModelAndView signOut(HttpServletRequest request, HttpServletResponse response)
 	{
 		request.getSession().invalidate();
-		ModelAndView model = login();
+		ModelAndView model = getLoginPage();
 		model.addObject("error", "You have logged out successfully.");
 		return model;
 	}
@@ -114,15 +114,24 @@ public class Controller
 	public ModelAndView validateResetPasswordToken(@RequestParam("token") String token)
 	{
 		ModelAndView view = null;
-		UserDetails userDetails = authServiceImpl.validateResetPasswordToken(token);
-		if (userDetails != null)
+		try
 		{
-			view = new ModelAndView("resetPasswordPage", "userDetails", userDetails);
-		}
-		else
+			UserDetails userDetails = authServiceImpl.validateResetPasswordToken(token);
+			if (userDetails != null)
+			{
+				view = new ModelAndView("resetPasswordPage", "userDetails", userDetails);
+				authServiceImpl.deleteResetPasswordToken(token);
+			}
+			else
+			{
+				view = new ModelAndView("showMessage");
+				view.addObject("message", "Passsword recovery token is invalid.");
+			}
+		} 
+		catch (Exception exception)
 		{
 			view = new ModelAndView("showMessage");
-			view.addObject("message", "Passsword recovery token is invalid.");
+			view.addObject("message", exception.getMessage());
 		}
 		return view;
 	}

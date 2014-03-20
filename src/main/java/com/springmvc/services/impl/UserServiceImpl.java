@@ -12,6 +12,7 @@ import com.springmvc.exception.InvalidUserException;
 import com.springmvc.model.UserDetails;
 import com.springmvc.services.UserService;
 import com.springmvc.utils.EntityConverter;
+import com.springmvc.utils.PasswordHelper;
 
 @Service
 public class UserServiceImpl implements UserService
@@ -25,6 +26,7 @@ public class UserServiceImpl implements UserService
 	public UserDetails createUser(UserDetails userDetails)
 	{
 		UserDetailsEntity userDetailsEntity = EntityConverter.toEntity(userDetails);
+		userDetailsEntity.setPassword(PasswordHelper.encodePassword(userDetails.getPassword(), userDetails.getUserName()));
 		userDetailsEntity = userManager.persist(userDetailsEntity);
 		return EntityConverter.fromEntity(userDetailsEntity);
 	}

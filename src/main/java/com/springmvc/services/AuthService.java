@@ -56,4 +56,12 @@ public interface AuthService
 	 * @return
 	 */
 	UserDetails validateResetPasswordToken(String token);
+
+	/**
+	 * This will delete the used token
+	 * 
+	 * @param token
+	 *            to be deleted
+	 */
+	void deleteResetPasswordToken(String token);
 }

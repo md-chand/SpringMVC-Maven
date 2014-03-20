@@ -18,12 +18,12 @@ public class AuthManager extends AbstractManager<UserDetailsEntity>
 		super(UserDetailsEntity.class);
 	}
 
-	public List<UserDetailsEntity> validateUser(UserLogin userLogin)
+	public List<UserDetailsEntity> validateUser(String userName, String password)
 	{
 		String hql = "select e from " + type.getName() + " e where e.userName = :userName and password = :password";
 		Query query = getEntityManager().createQuery(hql);
-		query.setParameter("userName", userLogin.getUserName());
-		query.setParameter("password", userLogin.getPassword());
+		query.setParameter("userName", userName);
+		query.setParameter("password", password);
 		return query.getResultList();
 	}
 }

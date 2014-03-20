@@ -44,9 +44,17 @@ public class TokenManager extends AbstractManager<TokenAuthenticationEntity>
 			tokenAuthEntity = new TokenAuthenticationEntity();
 			tokenAuthEntity.setUserDetailsEntity(userDetailsEntity);
 		}
+		tokenAuthEntity.setTokenExpiryDate(new Date(System.currentTimeMillis() + (2 * 60 * 1000)));
 		tokenAuthEntity.setTokenCreationDate(new Date());
 		tokenAuthEntity.setToken(token);
 		tokenAuthEntity = merge(tokenAuthEntity);
 		return tokenAuthEntity;
+	}
+
+	public boolean deleteResetPasswordTokenByTokenId(long tokenId)
+	{
+		TokenAuthenticationEntity authenticationTokenEntity = findById(tokenId);
+		remove(authenticationTokenEntity);
+		return (authenticationTokenEntity != null);
 	}
 }

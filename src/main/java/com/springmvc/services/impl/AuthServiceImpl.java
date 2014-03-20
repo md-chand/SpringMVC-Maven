@@ -5,6 +5,7 @@ package com.springmvc.services.impl;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
@@ -18,12 +19,14 @@ import com.springmvc.entity.UserDetailsEntity;
 import com.springmvc.entitymanager.AuthManager;
 import com.springmvc.entitymanager.TokenManager;
 import com.springmvc.exception.InvalidUserException;
+import com.springmvc.exception.SpringMVCApplicationException;
 import com.springmvc.model.UserDetails;
 import com.springmvc.model.UserLogin;
 import com.springmvc.services.AuthService;
 import com.springmvc.services.MailService;
 import com.springmvc.services.UserService;
 import com.springmvc.utils.EntityConverter;
+import com.springmvc.utils.PasswordHelper;
 
 /**
  * @author mpasha
@@ -50,7 +53,8 @@ public class AuthServiceImpl implements AuthService
 	public UserDetails login(UserLogin userLogin)
 	{
 		UserDetails userDetails = null;
-		List<UserDetailsEntity> userList = authManager.validateUser(userLogin);
+		String password = PasswordHelper.encodePassword(userLogin.getPassword(), userLogin.getUserName());
+		List<UserDetailsEntity> userList = authManager.validateUser(userLogin.getUserName(), password);
 		if (!userList.isEmpty())
 		{
 			UserDetailsEntity userDetailsEntity = userList.get(0);
@@ -101,8 +105,27 @@ public class AuthServiceImpl implements AuthService
 			return null;
 		}
 		TokenAuthenticationEntity tokenAuthenticationEntity = tokenAuthEntityList.get(0);
+		if(System.currentTimeMillis() > tokenAuthenticationEntity.getTokenExpiryDate().getTime())
+		{
+			throw new SpringMVCApplicationException("Password recovery token got expired");
+		}
 		userDetails = EntityConverter.fromEntity(tokenAuthenticationEntity.getUserDetailsEntity());
 		return userDetails;
+	}
+
+	@Transactional
+	@Override
+	public void deleteResetPasswordToken(String token)
+	{
+		List<TokenAuthenticationEntity> tokenAuthEntityList = tokenManager.getTokenEntityByToken(token);
+		if (!tokenAuthEntityList.isEmpty())
+		{
+			tokenManager.remove(tokenAuthEntityList.get(0));
+		}
+		else
+		{
+			throw new SpringMVCApplicationException("Invalid Token.");
+		}
 	}
 
 	@Override
