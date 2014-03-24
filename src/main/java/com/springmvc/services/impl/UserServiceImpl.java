@@ -64,7 +64,8 @@ public class UserServiceImpl implements UserService
 		{
 			throw new InvalidUserException("No user exist with id:" + userDetails.getUserId());
 		}
-		userDetailsEntity.setPassword(userDetails.getPassword());
+		String encodedPassword = PasswordHelper.encodePassword(userDetails.getPassword(), userDetails.getUserName());
+		userDetailsEntity.setPassword(encodedPassword);
 		userDetailsEntity = userManager.merge(userDetailsEntity);
 		return EntityConverter.fromEntity(userDetailsEntity);
 	}

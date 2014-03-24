@@ -144,6 +144,7 @@ public class Controller
 		ModelAndView view = null;
 		try
 		{
+			//Read user name and add it to input model
 			userDetails = userServiceImpl.updateUserPassword(userDetails);
 			if (userDetails != null)
 			{

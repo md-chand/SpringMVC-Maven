@@ -49,7 +49,7 @@
 							<p>
 								<label for="username" class="uname" data-icon="u">
 									Username </label>
-								<form:input path="" id="userName" type="text" value="${userDetails.userName }" readonly="true" />
+								<form:input path="userName" id="userName" type="text" value="${userDetails.userName }" readonly="true" />
 							</p>
 							<p>
 								<label for="password" class="youpasswd" data-icon="p">New password </label>

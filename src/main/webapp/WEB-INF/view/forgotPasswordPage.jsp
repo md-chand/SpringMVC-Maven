@@ -61,7 +61,7 @@
 								<form:input path="email" id="email" name="emailsignup" placeholder="mysupermail@mail.com" />
 							</p>
 							<p class="login button">
-								<input type="submit" value="Login" onclick="return validateUserNameOrPasswordEntered();" />
+								<input type="submit" value="Submit" onclick="return validateUserNameOrPasswordEntered();" />
 							</p>
 						</form:form>
 					</div>
