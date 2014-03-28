@@ -8,33 +8,25 @@
 <!--[if (gt IE 9)|!(IE)]><!-->
 <html lang="en" class="no-js">
 <!--<![endif]-->
-
-<%
-	String context = request.getContextPath();
-	String server = request.getServerName();
-%>
-
 <head>
 	<meta charset="UTF-8" />
 	<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
 	<title>Create User Page</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Login and Registration Form with HTML5 and CSS3" />
-	<meta name="keywords" content="html5, css3, form, switch, animation, :target, pseudo-class" />
-	<meta name="author" content="Codrops" />
-	<link rel="shortcut icon" href="../favicon.ico">
-	<link rel="stylesheet" type="text/css" href="<%=context%>/css/demo.css" />
-	<link rel="stylesheet" type="text/css" href="<%=context%>/css/style3.css" />
-
 </head>
-
-<script type="text/javascript" src="<%=context%>/script/validation.js"></script>
-<script type="text/javascript" src="<%=context%>/script/jQuery-1.10.1.min.js"></script>
 
 <body>
 <body>
 	<div class="container" style="text-align: inherit;">
-	<%@include file="header.jsp" %>
+	<%@include file="header.jsp" %>	
+		<div id='cssmenu'>
+			<ul>
+			   <li><a href='/springmvc/services/application/auth/userHomePage'><span>Home</span></a></li>
+			   <li class='active'><a href='#'><span>Create New User</span></a></li>
+			   <li><a href='#'><span>About</span></a></li>
+			   <li style="float: right;"><a href='#'><span>Contact</span></a></li>
+			</ul>
+		</div>
+		
 		<div id="wrapper"  style="margin: 0">
 			<div id="login"
 				style="padding: 2%; width: 90%; margin: 0px 20px 20px 47px; height: 95%;">

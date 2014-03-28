@@ -13,6 +13,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/FileUplaod")
@@ -48,6 +49,5 @@ public class FileUploadController
 		{
 			request.setAttribute("message", "Sorry this Servlet only handles file upload request");
 		}
-		request.getRequestDispatcher("/result.jsp").forward(request, response);
 	}
 }

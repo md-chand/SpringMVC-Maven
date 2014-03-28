@@ -80,3 +80,9 @@ function hideDiv(divId)
 {
 	$("#"+divId).hide();
 }
+
+
+function uploadFile()
+{
+	formData = $("")
+}

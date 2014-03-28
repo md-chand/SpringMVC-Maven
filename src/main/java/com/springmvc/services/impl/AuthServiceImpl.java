@@ -5,7 +5,6 @@ package com.springmvc.services.impl;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
