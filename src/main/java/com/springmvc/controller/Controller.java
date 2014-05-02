@@ -119,8 +119,7 @@ public class Controller
 			UserDetails userDetails = authServiceImpl.validateResetPasswordToken(token);
 			if (userDetails != null)
 			{
-				view = new ModelAndView("resetPasswordPage", "userDetails", userDetails);
-				authServiceImpl.deleteResetPasswordToken(token);
+				view = new ModelAndView("resetPasswordPage", "userDetails", userDetails);				
 			}
 			else
 			{
@@ -144,10 +143,12 @@ public class Controller
 		ModelAndView view = null;
 		try
 		{
-			//Read user name and add it to input model
-			userDetails = userServiceImpl.updateUserPassword(userDetails);
+			//Read user name and add it to input model			
+			userDetails = userServiceImpl.updateUserPassword(userDetails);			
 			if (userDetails != null)
 			{
+				int deleteTokenState = authServiceImpl.deleteResetPasswordToken(userDetails.getUserId());
+				System.err.println(deleteTokenState);
 				request.getSession().setAttribute("LOGGEDIN_USER", userDetails);
 				view = new ModelAndView("userHome");
 			}

@@ -7,6 +7,9 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 
 	<display-name>springmvc</display-name>
 
+<!-- Making application to work in distributed environment  by adding <distributable/> tag-->
+	<distributable />
+
 	<!-- - Location of the XML file that defines the root application context. 
 		- Applied by ContextLoaderListener. -->
 	<context-param>
@@ -39,9 +42,9 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-	
+
 	<session-config>
-		<session-timeout>1</session-timeout>
+		<session-timeout>30</session-timeout>
 	</session-config>
 
 </web-app>

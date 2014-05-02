@@ -11,20 +11,30 @@
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
 
-	<!-- Since services and repositories are annotated, not declaring beans 
-		explicitly -->
-	<context:component-scan
-		base-package="com.springmvc.services, com.springmvc.entitymanager, com.springmvc.callable" />
+	<!-- Load property file to use property place holders in this file -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:environment.properties</value>
+		</property>
+	</bean>
+
+	<!-- Since services and repositories are annotated, not declaring beans explicitly -->
+	<context:component-scan base-package="com.springmvc.services, com.springmvc.entitymanager, com.springmvc.callable" />
 
 	<import resource="/email-config.xml" />
+	<!-- Since, at the bean creation time, need to load email properties, declaring this bean manually -->
+	<bean id="mailServiceImpl" class="com.springmvc.services.impl.MailServiceImpl">
+		<constructor-arg name="mailSender" ref="mailSender" />
+		<property name="APP_URL" value="${app.url}" />
+	</bean>
 
 	<!-- Database configuration for MySQL -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/spring_db" />
-		<property name="username" value="root" />
-		<property name="password" value="tiger" />
+		<property name="driverClassName" value="${db.driverClass}" />
+		<property name="url" value="${db.url}" />
+		<property name="username" value="${db.username}" />
+		<property name="password" value="${db.password}" />
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
@@ -54,16 +64,5 @@
 		<property name="generateDdl" value="true" />
 		<property name="showSql" value="true" />
 	</bean>
-
-	<!-- Java.mail configuration -->
-	<!-- <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
-		<property name="host" value="smtp.gmail.com"/> <property name="port" value="587"/> 
-		<property name="username" value="springmavc@gmail.com"/> <property name="password" 
-		value="springmvc.123"/> <property name="javaMailProperties"> <props> <prop 
-		key="mail.transport.protocol">smtp</prop> <prop key="mail.smtp.auth">true</prop> 
-		<prop key="mail.smtp.starttls.enable">true</prop> <prop key="mail.debug">true</prop> 
-		</props> </property> </bean> <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean"> 
-		<property name="velocityProperties"> <value> resource.loader=class class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader 
-		</value> </property> </bean> -->
 
 </beans>

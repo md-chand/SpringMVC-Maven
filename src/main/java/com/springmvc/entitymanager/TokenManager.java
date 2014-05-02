@@ -57,4 +57,13 @@ public class TokenManager extends AbstractManager<TokenAuthenticationEntity>
 		remove(authenticationTokenEntity);
 		return (authenticationTokenEntity != null);
 	}
+	
+	public int deleteResetPasswordTokenByUserId(long userId)
+	{
+		
+		String hql = "delete from " + type.getName() + " e where e.userDetailsEntity.userId = :userId";
+		Query query = getEntityManager().createQuery(hql);
+		query.setParameter("userId", userId);
+		return query.executeUpdate();
+	}
 }

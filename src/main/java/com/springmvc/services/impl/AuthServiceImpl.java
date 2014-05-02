@@ -114,17 +114,9 @@ public class AuthServiceImpl implements AuthService
 
 	@Transactional
 	@Override
-	public void deleteResetPasswordToken(String token)
+	public int deleteResetPasswordToken(long userId)
 	{
-		List<TokenAuthenticationEntity> tokenAuthEntityList = tokenManager.getTokenEntityByToken(token);
-		if (!tokenAuthEntityList.isEmpty())
-		{
-			tokenManager.remove(tokenAuthEntityList.get(0));
-		}
-		else
-		{
-			throw new SpringMVCApplicationException("Invalid Token.");
-		}
+		return tokenManager.deleteResetPasswordTokenByUserId(userId);		
 	}
 
 	@Override
