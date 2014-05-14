@@ -1,5 +1,7 @@
 package com.springmvc.utils;
 
+import java.io.IOException;
+
 import com.springmvc.entity.UserDetailsEntity;
 import com.springmvc.model.UserDetails;
 
@@ -14,10 +16,12 @@ public class EntityConverter
 		userDetails.setUserId(userDetailsEntity.getUserId());
 		userDetails.setUserName(userDetailsEntity.getUserName());
 		userDetails.setPassword(userDetailsEntity.getPassword());
+		userDetails.setAvatar(userDetailsEntity.getAvatar());
+		userDetails.setGender(userDetailsEntity.getGender());
 		return userDetails;
 	}
 
-	public static UserDetailsEntity toEntity(UserDetails userDetails)
+	public static UserDetailsEntity toEntity(UserDetails userDetails) throws IOException
 	{
 		UserDetailsEntity userDetailsEntity = new UserDetailsEntity();
 		userDetailsEntity.setUserId(userDetails.getUserId());
@@ -26,6 +30,8 @@ public class EntityConverter
 		userDetailsEntity.setEmail(userDetails.getEmail());
 		userDetailsEntity.setUserName(userDetails.getUserName());
 		userDetailsEntity.setPassword(userDetails.getPassword());
+		userDetailsEntity.setAvatar(userDetails.getAvatar());
+		userDetailsEntity.setGender(userDetails.getGender());
 		return userDetailsEntity;
 	}
 }

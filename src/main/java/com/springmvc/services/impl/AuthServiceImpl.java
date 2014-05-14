@@ -3,6 +3,7 @@
  */
 package com.springmvc.services.impl;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.List;
@@ -64,7 +65,7 @@ public class AuthServiceImpl implements AuthService
 
 	@Override
 	@Transactional
-	public boolean sendResetPasswordToken(UserLogin userLogin) throws NoSuchAlgorithmException
+	public boolean sendResetPasswordToken(UserLogin userLogin) throws NoSuchAlgorithmException, IOException
 	{
 		boolean result = true;
 		UserDetails userDetails = null;

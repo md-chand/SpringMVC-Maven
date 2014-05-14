@@ -1,5 +1,6 @@
 package com.springmvc.services;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 import com.springmvc.exception.InvalidUserException;
@@ -44,8 +45,9 @@ public interface AuthService
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 * @throws InvalidUserException
+	 * @throws IOException 
 	 */
-	boolean sendResetPasswordToken(UserLogin userLogin) throws NoSuchAlgorithmException, InvalidUserException;
+	boolean sendResetPasswordToken(UserLogin userLogin) throws NoSuchAlgorithmException, InvalidUserException, IOException;
 
 	/**
 	 * This method will validate the reset password token received from user. It

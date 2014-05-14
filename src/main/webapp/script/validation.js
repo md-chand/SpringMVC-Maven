@@ -20,6 +20,27 @@ function validateResetPassword()
 	return true;
 }
 
+
+function hideDiv(divId)
+{
+	$("#"+divId).hide();
+}
+
+
+function uploadFile()
+{
+	formData = $("");
+}
+
+function openPopup()
+{
+	$("#changeAvatarPopup").show();
+	$("#changeAvatarPopupInnerDiv").css({
+        "top": (((($('#changeAvatarPopup').height() / 2) - ($('#changeAvatarPopupInnerDiv').height()/2))/($('#changeAvatarPopup').height())) * 98 +"%"),
+        "left": (((($('#changeAvatarPopup').width() / 2) - ($('#changeAvatarPopupInnerDiv').width()/2))/($('#changeAvatarPopup').width())) * 96 +"%")
+	});
+}
+
 function checkUserNameAvailability()
 {
 	var userName = $("#usernamesignup").val();
@@ -76,13 +97,34 @@ function checkForEmailExistence()
 	}
 }
 
-function hideDiv(divId)
-{
-	$("#"+divId).hide();
-}
-
-
-function uploadFile()
-{
-	formData = $("")
+function changeAvatar() {
+	var userName = $("#userName").val();
+	if (userName.length != 0) {
+		var formData = new FormData(document.getElementById("changeAvatarForm"));
+		$.ajax({
+			url : "/springmvc/services/application/auth/updateAvatar",
+			type : 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+			success : function(response) {
+				var date = new Date().getTime();
+				document.getElementById('avatarId').src = '/springmvc/services/application/auth/getAvatar/admin/'+date;
+				jQuery('#avatarImg').val ='';
+				jQuery('#changeAvatarPopup').hide();
+			},
+			failure : function(response) {
+				alert(" 1: " + response.responseText);
+				$("#userNameAvailable").hide();
+			},
+			error : function(response) {
+				alert(" 2: " + response.responseText);
+				$("#userNameAvailable").hide();
+			}
+		});
+	}
+	else
+	{
+		alert("Invalid Username");
+	}
 }
