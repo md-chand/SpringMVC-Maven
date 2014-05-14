@@ -2,6 +2,8 @@ package com.springmvc.model;
 
 import java.io.Serializable;
 
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * 
  * @author mpasha
@@ -16,6 +18,8 @@ public class UserDetails implements Serializable
 	private String email;
 	private String userName;
 	private String password;
+	private byte[] avatar;
+	private String gender;
 
 	public Long getUserId()
 	{
@@ -75,6 +79,26 @@ public class UserDetails implements Serializable
 	public void setPassword(String password)
 	{
 		this.password = password;
+	}
+
+	public byte[] getAvatar()
+	{
+		return avatar;
+	}
+
+	public void setAvatar(byte[] avatar)
+	{
+		this.avatar = avatar;
+	}
+
+	public String getGender()
+	{
+		return gender;
+	}
+
+	public void setGender(String gender)
+	{
+		this.gender = gender;
 	}
 
 	@Override

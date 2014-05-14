@@ -12,22 +12,12 @@ import javax.persistence.Table;
 public class UserDetailsEntity
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)	
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
 	private Long userId;
 
 	@Column(name = "name")
 	private String name;
-
-	public Long getUserId()
-	{
-		return userId;
-	}
-
-	public void setUserId(Long userId)
-	{
-		this.userId = userId;
-	}
 
 	@Column(name = "contactNumber")
 	private String contactNumber;
@@ -40,6 +30,22 @@ public class UserDetailsEntity
 
 	@Column(name = "password")
 	private String password;
+
+	@Column(name = "avatar")	
+	private byte[] avatar;
+	
+	@Column(name = "gender")
+	private String gender;
+	
+	public Long getUserId()
+	{
+		return userId;
+	}
+
+	public void setUserId(Long userId)
+	{
+		this.userId = userId;
+	}
 
 	public String getName()
 	{
@@ -91,4 +97,23 @@ public class UserDetailsEntity
 		this.password = password;
 	}
 
+	public byte[] getAvatar()
+	{
+		return avatar;
+	}
+
+	public void setAvatar(byte[] avatar)
+	{
+		this.avatar = avatar;
+	}
+
+	public String getGender()
+	{
+		return gender;
+	}
+
+	public void setGender(String gender)
+	{
+		this.gender = gender;
+	}
 }

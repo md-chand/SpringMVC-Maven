@@ -1,18 +1,24 @@
 package com.springmvc.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.springmvc.exception.InvalidUserException;
 import com.springmvc.model.UserDetails;
 import com.springmvc.model.UserLogin;
 import com.springmvc.services.AuthService;
@@ -54,18 +60,20 @@ public class Controller
 	public ModelAndView doLogin(@ModelAttribute("userLogin") UserLogin userLogin, HttpServletRequest request,
 			HttpServletResponse response)
 	{
+		ModelAndView model = null;
 		UserDetails userDetails = authServiceImpl.login(userLogin);
 		if (userDetails != null)
 		{
 			request.getSession().setAttribute("LOGGEDIN_USER", userDetails);
-			return new ModelAndView("userHome");
+			model = new ModelAndView("userHome");
+			model.addObject("message", "You have logged in successfully.");
 		}
 		else
 		{
-			ModelAndView model = new ModelAndView("loginPage", "userLogin", new UserLogin());
+			model = new ModelAndView("loginPage", "userLogin", new UserLogin());
 			model.addObject("error", "Invalid Credentials");
-			return model;
 		}
+		return model;
 	}
 
 	@ResponseBody
@@ -89,7 +97,7 @@ public class Controller
 	@ResponseBody
 	@RequestMapping(value = "/generateResetPasswordToken", method = RequestMethod.POST)
 	public ModelAndView generateResetPasswordToken(@ModelAttribute("userLogin") UserLogin userLogin,
-			HttpServletRequest request, HttpServletResponse response)
+			HttpServletRequest request, HttpServletResponse response) throws InvalidUserException, IOException // TODO
 	{
 		ModelAndView view = null;
 		String message = "Password reset link has been sent to your registred email address. <br/>You can reset the password by clicking that link";
@@ -119,15 +127,14 @@ public class Controller
 			UserDetails userDetails = authServiceImpl.validateResetPasswordToken(token);
 			if (userDetails != null)
 			{
-				view = new ModelAndView("resetPasswordPage", "userDetails", userDetails);				
+				view = new ModelAndView("resetPasswordPage", "userDetails", userDetails);
 			}
 			else
 			{
 				view = new ModelAndView("showMessage");
 				view.addObject("message", "Passsword recovery token is invalid.");
 			}
-		} 
-		catch (Exception exception)
+		} catch (Exception exception)
 		{
 			view = new ModelAndView("showMessage");
 			view.addObject("message", exception.getMessage());
@@ -143,14 +150,15 @@ public class Controller
 		ModelAndView view = null;
 		try
 		{
-			//Read user name and add it to input model			
-			userDetails = userServiceImpl.updateUserPassword(userDetails);			
+			// Read user name and add it to input model
+			userDetails = userServiceImpl.updateUserPassword(userDetails);
 			if (userDetails != null)
 			{
 				int deleteTokenState = authServiceImpl.deleteResetPasswordToken(userDetails.getUserId());
 				System.err.println(deleteTokenState);
 				request.getSession().setAttribute("LOGGEDIN_USER", userDetails);
 				view = new ModelAndView("userHome");
+				view.addObject("message", "Password reset done successfully.");
 			}
 		} catch (Exception exception)
 		{
@@ -168,15 +176,22 @@ public class Controller
 	}
 
 	@RequestMapping(value = "/auth/createUser", method = RequestMethod.POST)
-	public ModelAndView createUser(@ModelAttribute("userDetails") UserDetails userDetails, HttpServletRequest request,
-			HttpServletResponse response)
+	public ModelAndView createUser(@ModelAttribute("userDetails") UserDetails userDetails,
+			@RequestParam(value = "avatarImg", required = false) MultipartFile avatarImg, HttpServletRequest request,
+			HttpServletResponse response) throws IOException// TODO
 	{
+		ModelAndView model = null;
+		if (avatarImg.getBytes().length > 0)
+		{
+			userDetails.setAvatar(avatarImg.getBytes());
+		}
 		UserDetails details = userServiceImpl.createUser(userDetails);
 		if (details != null)
 		{
-			System.out.println("User Created Successfully.");
+			model = new ModelAndView("userHome");
+			model.addObject("message", "User created successfully.");
 		}
-		return new ModelAndView("userHome");
+		return model;
 	}
 
 	@ResponseBody
@@ -210,6 +225,49 @@ public class Controller
 			result = "existed";
 		}
 		return result;
+	}
+
+	@RequestMapping(value = "/auth/getAvatar/{userName}/{time}", method = RequestMethod.GET)
+	public void renderPhoto(@PathVariable("userName") String userName, @PathVariable("time") long time,  HttpServletRequest request,
+			HttpServletResponse response) throws IOException
+	{
+		UserDetails userDetails = userServiceImpl.getUserByUserName(userName);
+		byte[] photo = null;
+		if (userDetails.getAvatar() != null && userDetails.getAvatar().length > 0)
+		{
+			photo = userDetails.getAvatar();
+		}
+		else
+		{
+			String defaultAvatar = "/images/femaleProfilePic.png";
+			if (userDetails.getGender().equals("Male"))
+			{
+				defaultAvatar = "/images/maleProfilePic.png";
+			}
+
+			InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(defaultAvatar);
+			photo = IOUtils.toByteArray(inputStream);
+		}
+		response.setContentType("image/jpeg");
+		response.setContentLength(photo.length);
+		response.getOutputStream().write(photo);
+		response.getOutputStream().flush();
+	}
+
+	@RequestMapping(value = "/auth/updateAvatar", method = RequestMethod.POST)
+	public ModelAndView updateAvatar(@RequestParam(value = "avatarImg", required = false) MultipartFile avatarImg,
+			@RequestParam(value = "userName", required = false) String userName, HttpServletRequest request,
+			HttpServletResponse response) throws IOException //TODO :  Create separate service to update profile picture instead of calling update user details.
+	{
+		byte[] avatarBytes = null;
+		UserDetails userDetails = null;
+		if (avatarImg.getBytes().length > 0)
+		{
+			avatarBytes = avatarImg.getBytes();
+			userDetails = userServiceImpl.updateUserDetails(userName, avatarImg.getBytes());
+		}
+		ModelAndView model = new ModelAndView("userHome");		
+		return model ;
 	}
 
 	/**

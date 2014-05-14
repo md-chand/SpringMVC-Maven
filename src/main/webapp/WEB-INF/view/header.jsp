@@ -17,7 +17,8 @@
 	<link rel="shortcut icon" href="../favicon.ico">
 	<link rel="stylesheet" type="text/css" href="<%=context%>/css/demo.css" />
 	<link rel="stylesheet" type="text/css" href="<%=context%>/css/style3.css" />
-		<link rel="stylesheet" type="text/css" href="<%=context%>/css/menu-css.css" />
+	<link rel="stylesheet" type="text/css" href="<%=context%>/css/menu-css.css" />
+	<link rel="stylesheet" type="text/css" href="<%=context%>/css/PopUp.css" />	
 </head>
 
 <script type="text/javascript" src="<%=context%>/script/validation.js"></script>
