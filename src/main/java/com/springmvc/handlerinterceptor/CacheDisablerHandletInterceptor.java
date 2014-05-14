@@ -22,10 +22,9 @@ public class CacheDisablerHandletInterceptor extends HandlerInterceptorAdapter
 			throws Exception
 	{
 		// Do not store cache in browser
-		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP
-																					// 1.1.
-		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
-		response.setDateHeader("Expires", 0); // Proxies.
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", -1);
 	}
 
 	@Override
