@@ -38,7 +38,7 @@
 				<div class="dummy_div"></div>
 				<div class="popup-Content_div" id="changeAvatarPopupInnerDiv" style="overflow: visible;">
 					<form id="changeAvatarForm" enctype="multipart/form-data" method="POST" action="/springmvc/services/application/auth/updateAvatar">
-						<input type="text" id="userName" name="userName" value="${LOGGEDIN_USER.userName}">
+						<input type="hidden" id="userName" name="userName" value="${LOGGEDIN_USER.userName}">
 						<label style="font-size: 11pt; float: left;"> Please select your profile picture</label><br/>
 						<input type="file" name="avatarImg" id="avatarImg" style="padding-top: 10px;">
 						<div style="padding-top: 10%;">
