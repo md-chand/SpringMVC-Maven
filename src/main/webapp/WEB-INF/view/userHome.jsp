@@ -14,23 +14,16 @@
 <meta charset="UTF-8" />
 	<title>Home Page</title>
 </head>
-<body>
-	<div class="container" style="text-align: inherit;">		
-	<%@include file="header.jsp" %>
-		<div id='cssmenu'>
-			<ul>
-			   <li class='active'><a href='#'><span>Home</span></a></li>
-			   <li><a href='/springmvc/services/application/auth/getCreateUserPage'><span>Create New User</span></a></li>
-			   <li><a href='#'><span>About</span></a></li>			   
-			   <li style="float: right;"><a href='#'><span>Contact</span></a></li>
-			</ul>
-		</div>		
+<body onload="selectCurrentPage('userHome');">
+	<div class="container" style="text-align: inherit;">
+	<%@include file="header.jsp"%>	
 		<div id="login" style="top: 15%; padding: 2%; width: 91%; margin: 0px 20px 20px 47px; height: 60%; position: static;">
 			<c:if test="${message ne '' }">
 				<c:out value="${message }" />
 			</c:if>			
-			<div style="float:right" id="userAvatar">
+			<div style="float:right; text-align: center;" id="userAvatar">
 	    		<img id="avatarId" width="100px" height="100px" src='/springmvc/services/application/auth/getAvatar/${LOGGEDIN_USER.userName}/${LOGGEDIN_USER.userId}'>
+	    		<br/>
 	    		<a href="#" onclick="openPopup();">Change It</a>
 			</div>
 			<!-- Avatar POP content div -->

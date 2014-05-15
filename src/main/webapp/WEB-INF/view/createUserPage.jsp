@@ -15,18 +15,9 @@
 </head>
 
 <body>
-<body>
+<body onload="selectCurrentPage('createUser');">
 	<div class="container" style="text-align: inherit;">
 		<%@include file="header.jsp"%>
-		<div id='cssmenu'>
-			<ul>
-				<li><a href='/springmvc/services/application/auth/userHomePage'><span>Home</span></a></li>
-				<li class='active'><a href='#'><span>Create New User</span></a></li>
-				<li><a href='#'><span>About</span></a></li>
-				<li style="float: right;"><a href='#'><span>Contact</span></a></li>
-			</ul>
-		</div>
-
 		<div id="wrapper" style="margin: 0">
 			<div id="login"
 				style="padding: 2%; width: 90%; margin: 0px 20px 20px 47px; height: auto;">
@@ -58,6 +49,16 @@
 						<span style="padding-right: 5px;"><form:radiobutton path="gender" value="Male" required="required"/>Male</span>
 						<span style="padding-right: 5px;"><form:radiobutton path="gender" value="Female" required="required"/>Female</span>
 					</p>
+					
+					<p>
+					    <label style="padding-right:10px;">Please confirm your password </label> 
+					    <form:select path="role">					    
+					        <option value="USER">User</option>
+					        <option value="ADMIN">Admin</option>
+					        <option Value="MASTER">Master</option>
+					    </form:select>
+					</p>
+					
 					<p>
 						<label for="usernamesignup" class="uname" data-icon="u">Login
 							User Name</label>

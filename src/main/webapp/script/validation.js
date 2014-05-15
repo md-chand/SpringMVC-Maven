@@ -41,6 +41,20 @@ function openPopup()
 	});
 }
 
+function selectCurrentPage(pageName)
+{	
+	if (pageName == 'userHome') 
+	{
+		$("#homeMenuButton").addClass("active");
+		$("#homeMenuLink").attr('href','#');
+	}
+	else if (pageName == 'createUser')
+	{
+		$("#createUserMenuButton").addClass("active");
+		$("#createUserMenuLink").attr('href','#');
+	}	
+}
+
 function checkUserNameAvailability()
 {
 	var userName = $("#usernamesignup").val();

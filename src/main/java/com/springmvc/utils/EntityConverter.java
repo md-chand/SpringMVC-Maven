@@ -2,6 +2,7 @@ package com.springmvc.utils;
 
 import java.io.IOException;
 
+import com.springmvc.common.UserRole;
 import com.springmvc.entity.UserDetailsEntity;
 import com.springmvc.model.UserDetails;
 
@@ -18,6 +19,7 @@ public class EntityConverter
 		userDetails.setPassword(userDetailsEntity.getPassword());
 		userDetails.setAvatar(userDetailsEntity.getAvatar());
 		userDetails.setGender(userDetailsEntity.getGender());
+		userDetails.setRole(UserRole.valueOf(userDetailsEntity.getRole()));
 		return userDetails;
 	}
 
@@ -32,6 +34,7 @@ public class EntityConverter
 		userDetailsEntity.setPassword(userDetails.getPassword());
 		userDetailsEntity.setAvatar(userDetails.getAvatar());
 		userDetailsEntity.setGender(userDetails.getGender());
+		userDetailsEntity.setRole(userDetails.getRole().toString());
 		return userDetailsEntity;
 	}
 }
