@@ -1,0 +1,24 @@
+<html>
+<body bgcolor="black">
+	<div style="color: rgb(229, 109, 109);">
+		<h3>A message from Spring MVC application</h3>
+		<div
+			style="background-color: whitesmoke; margin-top: 25px; width: 100%;"
+			id="container">
+			<div style="color:#060101;">
+				Congratulations. Your Spring Mvn Application account is been created.
+				<br> 
+				Following are the login credentials to log in to the application.
+				<br><br>
+				App URL: <a href="${appURL}">${appURL}</a>
+				<br>
+				User Name: ${userName}
+				<br>
+				User Name: ${password}
+				<br><br>
+				<br>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

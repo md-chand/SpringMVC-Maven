@@ -10,16 +10,13 @@
 		</header>
 		<section>
 			<div id="container_demo">
-				<!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
-				<a class="hiddenanchor" id="toregister"></a> <a class="hiddenanchor"
-					id="tologin"></a>
 				<div id="wrapper">
 					<div id="login" class="animate form" style="height: 40%">
 						<form:form name='loginForm' action='/springmvc/services/application/doLogin' method='POST' modelAttribute="userLogin">
 							<!-- <h1>Log in</h1> -->
 							<p>
 								<label for="username" class="uname" data-icon="u">
-									Username </label>
+									User Name </label>
 								<form:input path="userName" id="userName" required="required"
 									type="text" placeholder="username" />
 							</p>

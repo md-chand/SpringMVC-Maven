@@ -73,6 +73,31 @@ public class MailServiceImpl implements MailService
 		this.mailSender.send(preparator);
 	}
 	
+	@Override
+	public void sendLoginCredentialsToUser(final String recipient, final String userName, final String password)
+	{
+		MimeMessagePreparator preparator = new MimeMessagePreparator()
+		{
+			public void prepare(MimeMessage mimeMessage) throws Exception
+			{
+				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+				message.setTo(recipient);
+				message.setSubject("Recovering your Spring MVC application log-in password");
+				
+				Map<String, String> model = new HashMap<String, String>();				
+				String url = APP_URL + Constants.LOGIN_URL;
+				model.put("appURL", url);
+				model.put("userName", userName);
+				model.put("password", password);
+				
+				String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
+						"/emailtemplates/newUserInfoEmailTemplate.vm", model);
+				message.setText(text, true);
+			}
+		};
+		this.mailSender.send(preparator);
+	}
+	
 	private void configMailingDetails(JavaMailSenderImpl mailSender)
 	{
 		//One can read the following details from DAO/property files

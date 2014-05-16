@@ -1,6 +1,7 @@
 package com.springmvc.services;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.springmvc.model.UserDetails;
 
@@ -20,9 +21,18 @@ public interface UserService
 	 * @param userDetails
 	 *            Object containing User details
 	 * @return Newly create {@link UserDetails} object
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	UserDetails createUser(UserDetails userDetails) throws IOException;
+
+	/**
+	 * This method will return a user details whose user id sent in as input
+	 * parameter
+	 * 
+	 * @param userId
+	 * @return {@link UserDetails}
+	 */
+	UserDetails getUserByUserId(long userId);
 
 	/**
 	 * This method will read and return {@link UserDetails} with respect to the
@@ -47,4 +57,6 @@ public interface UserService
 	UserDetails updateUserPassword(UserDetails userDetails);
 
 	UserDetails updateUserDetails(String userName, byte[] avatarBytes) throws IOException;
+
+	List<UserDetails> getAllUsers();
 }

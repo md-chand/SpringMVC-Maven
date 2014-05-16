@@ -3,6 +3,7 @@ package com.springmvc.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -65,8 +66,7 @@ public class Controller
 		if (userDetails != null)
 		{
 			request.getSession().setAttribute("LOGGEDIN_USER", userDetails);
-			model = new ModelAndView("userHome");
-			model.addObject("message", "You have logged in successfully.");
+			model = new ModelAndView("userHome");			
 		}
 		else
 		{
@@ -181,7 +181,7 @@ public class Controller
 			HttpServletResponse response) throws IOException// TODO
 	{
 		ModelAndView model = null;
-		if (avatarImg.getBytes().length > 0)
+		if (avatarImg != null && avatarImg.getBytes().length > 0)
 		{
 			userDetails.setAvatar(avatarImg.getBytes());
 		}
@@ -257,17 +257,42 @@ public class Controller
 	@RequestMapping(value = "/auth/updateAvatar", method = RequestMethod.POST)
 	public ModelAndView updateAvatar(@RequestParam(value = "avatarImg", required = false) MultipartFile avatarImg,
 			@RequestParam(value = "userName", required = false) String userName, HttpServletRequest request,
-			HttpServletResponse response) throws IOException //TODO :  Create separate service to update profile picture instead of calling update user details.
+			HttpServletResponse response) throws IOException  //TODO :  Create separate service to update profile picture instead of calling update user details.
 	{
-		byte[] avatarBytes = null;
-		UserDetails userDetails = null;
 		if (avatarImg.getBytes().length > 0)
 		{
-			avatarBytes = avatarImg.getBytes();
-			userDetails = userServiceImpl.updateUserDetails(userName, avatarImg.getBytes());
+			userServiceImpl.updateUserDetails(userName, avatarImg.getBytes());
 		}
-		ModelAndView model = new ModelAndView("userHome");		
-		return model ;
+		ModelAndView model = new ModelAndView("userHome");
+		return model;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/auth/getAllUserNames", method = RequestMethod.GET)
+	public ModelAndView getAllUserNames()
+	{
+		ModelAndView modelAndView = new ModelAndView("allUserNames");
+		List<UserDetails> userDetailsList = userServiceImpl.getAllUsers();
+		modelAndView.addObject("userDetailsList", userDetailsList);
+		return modelAndView;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/auth/getUserDetails/{userId}", method = RequestMethod.GET)
+	public ModelAndView getAllUserNames(@PathVariable ("userId") long userId)
+	{
+		ModelAndView modelAndView = new ModelAndView("ajaxview/userDetails");
+		UserDetails userDetails = userServiceImpl.getUserByUserId(userId);
+		modelAndView.addObject("userDetails", userDetails);
+		return modelAndView;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/auth/changePassword", method = RequestMethod.GET)
+	public ModelAndView changePassword(HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView model = new ModelAndView("changePassword", "userDetails", new UserDetails());		
+		return model;
 	}
 
 	/**

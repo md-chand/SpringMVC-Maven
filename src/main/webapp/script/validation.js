@@ -52,7 +52,12 @@ function selectCurrentPage(pageName)
 	{
 		$("#createUserMenuButton").addClass("active");
 		$("#createUserMenuLink").attr('href','#');
-	}	
+	}
+	else if(pageName = 'allUsersName')
+	{
+		$("#existingUserMenuButton").addClass("active");
+		$("#existingUserMenuLink").attr('href','#');
+	}
 }
 
 function checkUserNameAvailability()
@@ -141,4 +146,21 @@ function changeAvatar() {
 	{
 		alert("Invalid Username");
 	}
+}
+
+function getUserDetails() {
+	var selectedUserId = $("#existingUsersList").val();
+	$.ajax({
+		url : '/springmvc/services/application/auth/getUserDetails/'+selectedUserId,
+		type : 'GET',
+		success : function(response) {
+			jQuery("#selectedUserDetails").html(response);
+		},
+		failure : function(response) {
+			alert(" Failure: " + response.responseText);
+		},
+		error : function(response) {
+			alert(" Error: " + response.responseText);
+		}
+	});
 }

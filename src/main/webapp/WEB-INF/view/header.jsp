@@ -32,8 +32,9 @@
 	<div style="color: rgba(26, 89, 120, 0.9);">
 		<table style="width: 100%">
 		    <tr>
-		        <td style="width: 73%; text-align:left"><a href="/springmvc/services/application/auth/userHomePage"></a></td>
+		        <td style="width: 67%; text-align:left"><a href="/springmvc/services/application/auth/userHomePage"></a></td>
 		        <td>Logged In as ${LOGGEDIN_USER.name }</td>
+		        <td><a href="/springmvc/services/application/auth/changePassword">Change Password</a></td>
 		        <td><a href="/springmvc/services/application/auth/signOut">Sign out</a></td>
 		     </tr>
 		</table>
@@ -45,7 +46,8 @@
 	   <li id="homeMenuButton"><a id="homeMenuLink" href='/springmvc/services/application/auth/userHomePage'><span>Home</span></a></li>
 	   <c:if test="${LOGGEDIN_USER.role eq 'MASTER' or LOGGEDIN_USER.role eq 'ADMIN'}">
 	   		<li id="createUserMenuButton"><a id="createUserMenuLink" href='/springmvc/services/application/auth/getCreateUserPage'><span>Create New User</span></a></li>
-	   </c:if>	   
+	   		<li id="existingUserMenuButton"><a id="existingUserMenuLink" href='/springmvc/services/application/auth/getAllUserNames'><span>Existing User</span></a></li>
+	   </c:if>
 	   <li id="aboutMenuButton"><a id="aboutMenuLink" href='#'><span>About</span></a></li>			   
 	   <li style="float: right;"><a href='#'><span>Contact</span></a></li>
 	</ul>

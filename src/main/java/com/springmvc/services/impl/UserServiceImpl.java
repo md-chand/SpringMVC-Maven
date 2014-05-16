@@ -1,6 +1,7 @@
 package com.springmvc.services.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.springmvc.entity.UserDetailsEntity;
 import com.springmvc.entitymanager.UserManager;
 import com.springmvc.exception.InvalidUserException;
 import com.springmvc.model.UserDetails;
+import com.springmvc.services.MailService;
 import com.springmvc.services.UserService;
 import com.springmvc.utils.EntityConverter;
 import com.springmvc.utils.PasswordHelper;
@@ -22,13 +24,18 @@ public class UserServiceImpl implements UserService
 	@Autowired
 	UserManager userManager;
 
+	@Autowired
+	MailService mailServiceImpl;
+
 	@Override
 	@Transactional
 	public UserDetails createUser(UserDetails userDetails) throws IOException
 	{
 		UserDetailsEntity userDetailsEntity = EntityConverter.toEntity(userDetails);
-		userDetailsEntity.setPassword(PasswordHelper.encodePassword(userDetails.getPassword(), userDetails.getUserName()));
+		String passwordSalt = PasswordHelper.getDefaultPassword();
+		userDetailsEntity.setPassword(PasswordHelper.encodePassword(passwordSalt, userDetails.getUserName()));
 		userDetailsEntity = userManager.persist(userDetailsEntity);
+		mailServiceImpl.sendLoginCredentialsToUser(userDetails.getEmail(), userDetails.getUserName(), passwordSalt);
 		return EntityConverter.fromEntity(userDetailsEntity);
 	}
 
@@ -77,7 +84,7 @@ public class UserServiceImpl implements UserService
 	{
 		UserDetails userDetails = null;
 		List<UserDetailsEntity> userDetailsEntityList = userManager.getUserByUserName(userName);
-		if(userDetailsEntityList.size() > 0)
+		if (userDetailsEntityList.size() > 0)
 		{
 			UserDetailsEntity userDetailsEntity = userDetailsEntityList.get(0);
 			userDetailsEntity.setAvatar(avatarBytes);
@@ -85,6 +92,24 @@ public class UserServiceImpl implements UserService
 			userDetails = EntityConverter.fromEntity(userManager.merge(userDetailsEntity));
 		}
 		return userDetails;
+	}
+
+	@Override
+	public UserDetails getUserByUserId(long userId)
+	{
+		return EntityConverter.fromEntity(userManager.findById(userId));
+	}
+
+	@Override
+	public List<UserDetails> getAllUsers()
+	{
+		List<UserDetails> userDetailsList = new ArrayList<UserDetails>();
+		List<UserDetailsEntity> userDetailsEntityList = userManager.getAllUser();
+		for (UserDetailsEntity userDetailsEntity : userDetailsEntityList)
+		{
+			userDetailsList.add(EntityConverter.fromEntity(userDetailsEntity));
+		}
+		return userDetailsList;
 	}
 
 }
