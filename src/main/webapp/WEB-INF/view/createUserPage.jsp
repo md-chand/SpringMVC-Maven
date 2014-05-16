@@ -15,35 +15,28 @@
 </head>
 
 <body>
-<body>
+<body onload="selectCurrentPage('createUser');">
 	<div class="container" style="text-align: inherit;">
-		<%@include file="header.jsp"%>
-		<div id='cssmenu'>
-			<ul>
-				<li><a href='/springmvc/services/application/auth/userHomePage'><span>Home</span></a></li>
-				<li class='active'><a href='#'><span>Create New User</span></a></li>
-				<li><a href='#'><span>About</span></a></li>
-				<li style="float: right;"><a href='#'><span>Contact</span></a></li>
-			</ul>
-		</div>
-
+		<%@include file="header.jsp"%>	
+		<div id="login" style="top: 15%; padding: 2%; width: 91%; margin: 0px 20px 20px 47px; height: 65%; position: static;">
+		
 		<div id="wrapper" style="margin: 0">
-			<div id="login"
-				style="padding: 2%; width: 90%; margin: 0px 20px 20px 47px; height: auto;">
+		<div id="login" style="padding: 2%; width: 90%; height: auto;">
+		
 				<form:form action="/springmvc/services/application/auth/createUser"
 					method="post" modelAttribute="userDetails"
 					enctype="multipart/form-data">
 					<p>
 						<label for="namesignup" class="uname" data-icon="u">Name</label>
 						<form:input path="name" id="namesignup" name="usernamesignup"
-							required="required" placeholder="mysuperusername690" />
+							required="required" placeholder="" />
 					</p>
 					<p>
 						<label for="emailsignup" class="youmail" data-icon="e">
 							Email Id</label>
 						<form:input path="email" id="emailsignup" name="emailsignup"
 							required="required" placeholder="mysupermail@mail.com"
-							onblur="checkForEmailExistence();" />
+							 />
 					<div id="emailError" style="color: red; display: none;"></div>
 					</p>
 					<p>
@@ -53,44 +46,36 @@
 							name="usernamesignup" required="required"
 							placeholder="mysuperusername690" />
 					</p>
+				
 					<p>
-						<label style="padding-right: 10px;">Gender</label>
-						<span style="padding-right: 5px;"><form:radiobutton path="gender" value="Male" required="required"/>Male</span>
-						<span style="padding-right: 5px;"><form:radiobutton path="gender" value="Female" required="required"/>Female</span>
+						<label style="padding-right: 10px;">Gender</label> 
+						<span style="padding-right: 5px;"><form:radiobutton path="gender" value="Male" required="required" />Male</span> 
+						<span style="padding-right: 5px;"><form:radiobutton path="gender" value="Female" required="required" />Female</span>
+							<!-- User Role -->
+						<label style="padding-left: 30%;">User Role </label>
+						<form:select path="role">
+							<option value="USER">User</option>
+							<option value="ADMIN">Admin</option>
+							<option Value="MASTER">Master</option>
+						</form:select>					
 					</p>
+					
 					<p>
 						<label for="usernamesignup" class="uname" data-icon="u">Login
 							User Name</label>
 						<form:input path="userName" id="usernamesignup"
 							name="usernamesignup" required="required"
 							placeholder="mysuperusername690"
-							onblur="checkUserNameAvailability();" />
+							 />
 					<div id="userNameAvailable" style="color: red; display: none;"></div>
-					</p>
-					<p>
-						<label for="passwordsignup" class="youpasswd" data-icon="p">Login
-							Password </label>
-						<form:password path="password" id="passwordsignup"
-							name="passwordsignup" required="required"
-							placeholder="eg. X8df!90EO" />
-					</p>
-					<p>
-						<label for="passwordsignup_confirm" class="youpasswd"
-							data-icon="p">Please confirm your password </label> <input
-							id="passwordsignup_confirm" name="passwordsignup_confirm"
-							required="required" type="password" placeholder="eg. X8df!90EO" />
-					</p>
-					<p>
-						<label for="passwordsignup_confirm" class="youpasswd"
-							data-icon="p">Upload Profile Picture</label> <input type="file"
-							id="avatarImg" name="avatarImg" />
-					</p>
+					</p>					
 					<p class="signin button">
-						<input type="submit" value="Sign up" />
+						<input type="submit" value="Create" />
 					</p>
 				</form:form>
 			</div>
 		</div>
-	</div>
+		</div>
+		</div>
 </body>
 </html>

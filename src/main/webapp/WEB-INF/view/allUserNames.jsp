@@ -12,26 +12,24 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<title>Home Page</title>
+	<title>View User</title>
 </head>
-<body onload="selectCurrentPage('userHome');">
+<body onload="selectCurrentPage('allUsersName');">
 	<div class="container" style="text-align: inherit;">
 		<%@include file="header.jsp"%>	
 		<div id="login" style="top: 15%; padding: 2%; width: 91%; margin: 0px 20px 20px 47px; height: 65%; position: static;">
-			<c:if test="${message ne '' }">
-				<c:out value="${message }" />
-			</c:if>			
-			<div style="float:right; text-align: center;" id="userAvatar">
-	    		<img id="avatarId" width="100px" height="100px" src='/springmvc/services/application/auth/getAvatar/${LOGGEDIN_USER.userName}/${LOGGEDIN_USER.userId}'>
-	    		<br/>
-	    		<a href="#" onclick="openPopup();">Change It</a>
+			
+			<div id="existingUsers" onchange="getUserDetails();">
+				Select An User: <select id="existingUsersList">
+					<c:forEach items="${userDetailsList }" var="userDetail">
+						<option value="${userDetail.userId}">${userDetail.name}</option>
+					</c:forEach>
+				</select>
+				<hr style="color: rgb(54, 176, 182); margin-bottom: 1%;">
+				<div id="selectedUserDetails">
+				</div>
 			</div>
-			<div id="createUser">
-			</div>
-			<div id="existingUsersList">
-			</div>
-			<div id="selectedUserDetails">
-			</div>
+			
 			<!-- Avatar POP content div -->
 			<div class="popup_Div" id="changeAvatarPopup">
 				<div class="dummy_div"></div>
@@ -50,7 +48,7 @@
 						</div>
 					</form>
 				</div>
-			</div>
+			</div>			
 		</div>
 	</div>
 </body>

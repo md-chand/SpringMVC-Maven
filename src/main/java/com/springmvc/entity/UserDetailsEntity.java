@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.springmvc.common.UserRole;
+
 @Entity
 @Table(name = "USER_DETAILS")
 public class UserDetailsEntity
@@ -36,6 +38,9 @@ public class UserDetailsEntity
 	
 	@Column(name = "gender")
 	private String gender;
+	
+	@Column(name = "role")
+	private String role;
 	
 	public Long getUserId()
 	{
@@ -115,5 +120,15 @@ public class UserDetailsEntity
 	public void setGender(String gender)
 	{
 		this.gender = gender;
+	}
+
+	public String getRole()
+	{
+		return role;
+	}
+
+	public void setRole(String role)
+	{
+		this.role = role;
 	}
 }

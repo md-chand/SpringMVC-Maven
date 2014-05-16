@@ -10,4 +10,5 @@ package com.springmvc.common;
 public class Constants
 {
 	public static final String RESET_PWD_TOKEN_AUTH_URL = "/springmvc/services/application/validateResetPasswordToken?token=";
+	public static final String LOGIN_URL = "/springmvc";
 }

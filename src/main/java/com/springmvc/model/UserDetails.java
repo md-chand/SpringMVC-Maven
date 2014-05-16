@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.springmvc.common.UserRole;
+
 /**
  * 
  * @author mpasha
@@ -20,6 +22,7 @@ public class UserDetails implements Serializable
 	private String password;
 	private byte[] avatar;
 	private String gender;
+	private UserRole role;
 
 	public Long getUserId()
 	{
@@ -99,6 +102,16 @@ public class UserDetails implements Serializable
 	public void setGender(String gender)
 	{
 		this.gender = gender;
+	}
+
+	public UserRole getRole()
+	{
+		return role;
+	}
+
+	public void setRole(UserRole role)
+	{
+		this.role = role;
 	}
 
 	@Override

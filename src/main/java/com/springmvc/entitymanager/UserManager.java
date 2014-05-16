@@ -33,4 +33,11 @@ public class UserManager extends AbstractManager<UserDetailsEntity>
 		query.setParameter("email", email);
 		return query.getResultList();
 	}
+	
+	public List<UserDetailsEntity> getAllUser()
+	{
+		String hql = "select e from " + type.getName() + " e";
+		Query query = getEntityManager().createQuery(hql);		
+		return query.getResultList();
+	}
 }
