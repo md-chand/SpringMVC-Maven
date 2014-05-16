@@ -33,8 +33,8 @@
 		<table style="width: 100%">
 		    <tr>
 		        <td style="width: 67%; text-align:left"><a href="/springmvc/services/application/auth/userHomePage"></a></td>
-		        <td>Logged In as ${LOGGEDIN_USER.name }</td>
-		        <td><a href="/springmvc/services/application/auth/changePassword">Change Password</a></td>
+		        <td>Logged in as ${LOGGEDIN_USER.name }.</td>
+		        <td style="text-align: right; padding-right: 1%;"><a href="/springmvc/services/application/auth/changePassword">Change Password</a></td>
 		        <td><a href="/springmvc/services/application/auth/signOut">Sign out</a></td>
 		     </tr>
 		</table>
